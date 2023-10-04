@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authors</title>
+</head>
+
+<body>
+
+<h1>Authors:</h1>
+
+{% if tab is defined and tab is not empty %}
+    <p>Nombre total d'auteurs : {{ tab|length }}</p> 
+    {% set totalBooks = 0 %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Number of Books</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for author in tab %}
+         {% set totalBooks = totalBooks + author.nb_books %}
+        <tr>
+          <td><img src="{{ author.picture }}" alt="{{ author.username }}" /></td>
+          <td>{{ author.username|upper }}</td>
+          <td>{{ author.email }}</td>
+          <td>{{ author.nb_books }}</td>
+          <td>
+            <button type="button">Clique</button>
+            <a href="{{ path('d') }}">Det</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table><p>Nombre total de livres de tous les auteurs : {{ totalBooks }}</p>
+
+{% else %}
+    <p>Aucun auteur n'est disponible.</p>
+{% endif %}
+
+</body>
+
+</html>
